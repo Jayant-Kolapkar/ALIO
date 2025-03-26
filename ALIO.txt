@@ -1,0 +1,1412 @@
+Lab 1
+Aim:
+To design and implement two circuits:
+A circuit to control the speed of a DC motor using a potentiometer.
+
+
+A circuit to blink an LED using an Arduino.
+
+
+
+Theory:
+DC Motor Speed Control with Potentiometer:
+
+
+A 9V battery powers the motor.
+
+
+A potentiometer acts as a variable resistor, controlling voltage.
+
+
+As voltage increases, motor speed increases; as voltage decreases, motor speed decreases.
+
+
+LED Blinking using Arduino:
+
+
+An Arduino Uno is used as a microcontroller.
+
+
+The LED is connected to the Arduino via a resistor to prevent excess current.
+
+
+A simple program toggles the LED on and off at regular intervals.
+
+
+
+Algorithm:
+For DC Motor Speed Control:
+
+
+Connect the 9V battery to the motor.
+
+
+Insert the potentiometer in series with the motor.
+
+
+Adjust the potentiometer knob to change resistance.
+
+
+Observe the change in motor speed.
+
+
+For LED Blinking with Arduino:
+
+
+Connect the LED to a digital pin on the Arduino (e.g., LED_BUILTIN).
+
+
+Use a resistor in series to limit current.
+
+
+Upload the following code to the Arduino.
+
+
+
+Code:
+
+void setup()
+{
+	pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop()
+{
+	digitalWrite(LED_BUILTIN, HIGH);
+	delay(1000); // Wait for 1000 milliseconds (1 second)
+	digitalWrite(LED_BUILTIN, LOW);
+	delay(1000); // Wait for 1000 milliseconds (1 second)
+}
+
+Expected Output:
+DC Motor Control:
+
+
+When the potentiometer is turned, the motor speed changes accordingly.
+
+
+LED Blinking:
+
+
+The LED turns ON for 1 second.
+
+
+The LED turns OFF for 1 second.
+
+
+This repeats indefinitely.
+
+Lab 2
+Aim:
+To study and implement various sensors and actuators, including:
+
+
+Light Dependent Resistor (LDR)
+
+
+Temperature Sensor
+
+
+Potentiometer
+
+
+Servo Motor
+
+
+To build an Arduino-based automatic light control system using an LDR and relay.
+
+
+
+Theory:
+Light Dependent Resistor (LDR):
+
+
+Detects light intensity and changes resistance accordingly.
+
+
+Used in automatic streetlights and energy-saving systems.
+
+
+Temperature Sensor:
+
+
+Converts surrounding temperature into an analog signal.
+
+
+Used in thermostats and weather monitoring.
+
+
+Potentiometer:
+
+
+A variable resistor that controls voltage or current.
+
+
+Used in volume controls and brightness settings.
+
+
+Servo Motor:
+
+
+Actuator that moves to specific angles (0°, 90°, 180°).
+
+
+Used in robotics, automation, and control systems.
+
+
+
+Algorithm:
+For Servo Motor Control:
+
+
+Connect the servo motor to an Arduino digital pin.
+
+
+Write a program to move it between 0°, 90°, and 180° at 1-second intervals.
+
+
+Upload the program and observe the movement.
+
+
+For LDR-Based Automatic Light Control:
+
+
+Connect LDR to an analog pin on the Arduino.
+
+
+Connect a relay to control a high-voltage bulb.
+
+
+Read the LDR value continuously.
+
+
+If light intensity is low, turn ON the bulb.
+
+
+If light intensity is high, turn OFF the bulb.
+
+
+Repeat the process.
+
+
+
+Code:
+1. Servo Motor Code:
+#include <Servo.h>
+Servo myServo;
+
+void setup() {
+	myServo.attach(9); // Attach servo to pin 9
+}
+
+void loop() {
+	myServo.write(0);   // Rotate to 0 degrees
+	delay(1000);
+	myServo.write(90);  // Rotate to 90 degrees
+	delay(1000);
+	myServo.write(180); // Rotate to 180 degrees
+	delay(1000);
+}
+
+
+2. LDR-Based Light Control Code:
+void setup() {
+	pinMode(A0, INPUT);
+	pinMode(6, OUTPUT);
+	Serial.begin(9600);
+}
+
+void loop() {
+	int lightValue = analogRead(A0);
+	Serial.println(lightValue);
+    
+	if (lightValue > 500) {
+    	digitalWrite(6, LOW); // Light OFF
+	} else {
+    	digitalWrite(6, HIGH); // Light ON
+	}
+	delay(10);
+}
+
+Expected Output:
+Servo Motor:
+
+
+The servo motor rotates 0° → 90° → 180° in a loop.
+
+
+LDR-Based Light Control:
+
+
+If light intensity is low, the bulb turns ON.
+
+
+If light intensity is high, the bulb turns OFF.
+
+
+The system simulates an energy-saving automatic light.
+
+Lab 3
+Aim:
+To study LED control using Arduino and implement different LED lighting patterns.
+
+Theory:
+LED Control Using Arduino:
+
+
+LEDs are controlled using digital output pins of an Arduino.
+
+
+The digitalWrite() function is used to turn an LED ON (HIGH) or OFF (LOW).
+
+
+delay() is used to control the timing of LED transitions.
+
+
+Controlling Multiple LEDs:
+
+
+Multiple LEDs can be controlled by looping through different digital pins.
+
+
+Both digital (0-13) and analog (A0-A5) pins can function as output.
+
+
+LED Sequential Patterns:
+
+
+By lighting up LEDs in a sequence, we can create wave-like lighting effects.
+
+
+Nested loops help in controlling multiple LEDs dynamically.
+
+
+
+Algorithm:
+For Single LED Blinking (Task 1):
+
+
+Connect an LED to digital pin 10 of the Arduino.
+
+
+Set pin 10 as an OUTPUT in setup().
+
+
+In loop(), turn the LED ON, wait for 1 second, turn it OFF, wait for 1 second.
+
+
+Repeat indefinitely.
+
+
+For Controlling Multiple Pins (Task 2):
+
+
+Configure digital pins (0-13) and analog pins (A0-A5) as OUTPUT.
+
+
+Loop through all pins, turning each ON for 1 second and then OFF.
+
+
+Repeat indefinitely.
+
+
+For Sequential LED Patterns (Task 3):
+
+
+Set pins 2 to 11 as OUTPUT.
+
+
+Light up LEDs in a wave-like pattern, shifting one LED at a time.
+
+
+Introduce a delay for a smooth effect.
+
+
+Repeat the sequence.
+
+
+
+Code:
+1. Single LED Blinking (Task 1):
+int ledPin = 10; // LED connected to pin 10
+
+void setup() {
+	pinMode(ledPin, OUTPUT);  // Set pin as OUTPUT
+}
+
+void loop() {
+	digitalWrite(ledPin, HIGH); // Turn LED ON
+	delay(1000);           	// Wait for 1 second
+	digitalWrite(ledPin, LOW);  // Turn LED OFF
+	delay(1000);           	// Wait for 1 second
+}
+
+2. Controlling Multiple Digital & Analog Pins (Task 2):
+void setup() {
+	for (int pin = 0; pin <= 13; pin++) {
+    	pinMode(pin, OUTPUT);
+	}
+	for (int pin = A0; pin <= A5; pin++) {
+    	pinMode(pin, OUTPUT);
+	}
+}
+
+void loop() {
+	for (int pin = 0; pin <= 13; pin++) {
+    	digitalWrite(pin, HIGH);
+    	delay(1000);
+    	digitalWrite(pin, LOW);
+	}
+	for (int pin = A0; pin <= A5; pin++) {
+    	digitalWrite(pin, HIGH);
+    	delay(1000);
+    	digitalWrite(pin, LOW);
+	}
+}
+
+3. Sequential LED Lighting (Task 3):
+void setup() {
+	for (int i = 2; i < 12; i++) {
+    	pinMode(i, OUTPUT);
+	}
+}
+
+void loop() {
+	for (int k = 0; k < 10; k++) {
+    	for (int i = 2; i < 12; i++) {
+        	for (int j = i; j <= min(i + k, 11); j++)
+            	digitalWrite(j, HIGH);
+
+        	delay(500);
+
+        	for (int j = i; j <= min(i + k, 11); j++)
+            	digitalWrite(j, LOW);
+    	}
+	}
+}
+
+Expected Output:
+Task 1 (Single LED Blink):
+
+
+LED blinks ON and OFF every second.
+
+
+Task 2 (Multiple Pins):
+
+
+Each pin (0-13, A0-A5) turns ON for 1 second and then OFF, sequentially.
+
+
+Task 3 (Sequential LED Wave):
+
+
+LEDs light up in a wave-like motion, one after another, then turn off.
+
+Lab 4
+Aim:
+Task 1: To design an automatic fan speed control system using a temperature sensor, LCD, and Arduino.
+
+
+Task 2: To create a soil moisture monitoring and automatic plant watering system using moisture sensors, relays, and Arduino.
+
+
+
+Theory:
+Temperature-Based Fan Control (Task 1):
+
+
+A temperature sensor (analog input) reads the ambient temperature.
+
+
+The value is converted to Celsius and displayed on an LCD.
+
+
+A relay and fan are controlled based on temperature:
+
+
+Below 20°C → Fan OFF.
+
+
+20-25°C → Fan at 20% speed.
+
+
+25-35°C → Fan at 40% speed.
+
+
+35-40°C → Fan at 60% speed.
+
+
+40-44°C → Fan at 80% speed.
+
+
+Above 45°C → Fan at 100% speed.
+
+
+Soil Moisture-Based Watering System (Task 2):
+
+
+Moisture sensors detect soil dryness.
+
+
+If the soil is too dry (moisture level below threshold), the corresponding motor (pump) is activated via a relay.
+
+
+The system continuously checks and waters only dry soil, saving water.
+
+
+
+Algorithm:
+For Temperature-Based Fan Control:
+
+
+Connect temperature sensor to Arduino's A1 pin.
+
+
+Connect LCD and initialize it.
+
+
+Read the temperature value.
+
+
+Convert it to voltage and then Celsius.
+
+
+Display the temperature on LCD.
+
+
+Adjust fan speed based on temperature.
+
+
+Repeat the process.
+
+
+For Soil Moisture-Based Watering System:
+
+
+Connect moisture sensors to analog pins A0, A1, A2.
+
+
+Connect relays to control the water pumps.
+
+
+Read soil moisture levels.
+
+
+If moisture < threshold, activate the water pump for 5 seconds.
+
+
+Wait for 10 seconds and repeat.
+
+
+
+Code:
+1. Temperature-Based Fan Control (Task 1):
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+float temp;
+int tempPin = A1;
+int relayPin = 8;
+#define fan 9
+
+void setup() {
+	pinMode(fan, OUTPUT);
+	pinMode(relayPin, OUTPUT);
+ 
+	lcd.begin(16, 3);
+	lcd.setCursor(3,0);
+	lcd.print("AUTO TEMPERATURE");
+	delay(2000);
+	lcd.clear();
+}
+
+void loop() {
+	lcd.setCursor(3,0);
+	lcd.print("Recording...");
+	delay(3000);
+	lcd.clear();
+
+	temp = analogRead(tempPin);
+	float voltage = temp * 5.0 / 1024.0;
+	float temperatureC = (voltage - 0.5) * 100;
+
+	lcd.setCursor(0, 0);
+	lcd.print("Temperature = ");
+	lcd.setCursor(2,1);
+	lcd.print(temperatureC);
+	lcd.print(" °C");
+	delay(3000);
+	lcd.clear();
+
+	if (temperatureC >= 20) {
+    	digitalWrite(relayPin, HIGH);
+    	if (temperatureC <= 25) {
+        	analogWrite(fan, 51);
+        	lcd.print("Fan Speed: 20%");
+    	} else if (temperatureC <= 35) {
+        	analogWrite(fan, 102);
+        	lcd.print("Fan Speed: 40%");
+    	} else if (temperatureC <= 40) {
+        	analogWrite(fan, 153);
+        	lcd.print("Fan Speed: 60%");
+    	} else if (temperatureC <= 44) {
+        	analogWrite(fan, 200);
+        	lcd.print("Fan Speed: 80%");
+    	} else {
+        	analogWrite(fan, 255);
+        	lcd.print("Fan Speed: 100%");
+    	}
+    	delay(2000);
+    	lcd.clear();
+	} else {
+    	digitalWrite(relayPin, LOW);
+    	analogWrite(fan, 0);
+    	lcd.print("Fan OFF");
+    	delay(2000);
+    	lcd.clear();
+	}
+}
+
+2. Soil Moisture-Based Watering System (Task 2):
+const int moistureSensorPins[] = {A0, A1, A2}; // Moisture sensors
+const int relayPins[] = {8, 7, 6}; // Relay-controlled motors
+const int moistureThreshold = 300; // Threshold for dryness
+
+void setup() {
+	Serial.begin(9600);
+	for (int i = 0; i < 3; i++) {
+    	pinMode(relayPins[i], OUTPUT);
+    	digitalWrite(relayPins[i], LOW); // Ensure motors are off initially
+	}
+}
+
+void loop() {
+	for (int i = 0; i < 3; i++) {
+    	int moistureLevel = analogRead(moistureSensorPins[i]);
+    	Serial.print("Soil Moisture Level (Sensor ");
+    	Serial.print(i + 1);
+    	Serial.print("): ");
+    	Serial.println(moistureLevel);
+
+    	if (moistureLevel < moistureThreshold) {
+        	Serial.print("Soil is dry at Sensor ");
+        	Serial.print(i + 1);
+        	Serial.println("! Watering the plant...");
+        	digitalWrite(relayPins[i], HIGH);
+        	delay(5000);
+        	digitalWrite(relayPins[i], LOW);
+        	Serial.println("Watering complete.");
+    	} else {
+        	Serial.print("Soil moisture is sufficient at Sensor ");
+        	Serial.println(i + 1);
+    	}
+	}
+	delay(10000); // Wait before the next reading
+}
+
+Expected Output:
+Task 1 (Fan Control):
+
+
+The LCD displays temperature readings.
+
+
+The fan speed increases as the temperature rises.
+
+
+Fan turns OFF below 20°C.
+
+
+Task 2 (Soil Moisture Monitoring):
+
+
+If the soil is dry, the corresponding pump turns ON for 5 seconds.
+
+
+If soil moisture is sufficient, the pump remains OFF.
+
+
+The system loops infinitely, checking soil moisture.
+
+
+
+Lab 5
+Aim:
+To interface the ESP8266 Wi-Fi module with a microcontroller and send sensor data to an IoT cloud platform (ThingSpeak) using HTTP requests.
+
+Theory:
+The ESP8266 is a low-cost Wi-Fi module that allows microcontrollers to connect to the internet. It supports TCP/IP communication and can send data to cloud services like ThingSpeak. In this lab, we connect the ESP8266 to a simulated Wi-Fi network, establish a TCP connection, and send sensor data via an HTTP GET request.
+Key concepts involved:
+ESP8266 AT Commands: Used to configure the module and establish connections.
+
+
+Analog Sensor Reading: The microcontroller reads data from an analog sensor.
+
+
+ThingSpeak API: A cloud-based IoT analytics platform that collects and visualizes sensor data.
+
+
+Serial Communication: Enables communication between the microcontroller and the ESP8266 module.
+
+
+
+Algorithm:
+Initialize ESP8266:
+
+
+Start serial communication at 115200 baud rate.
+
+
+Send "AT" command to check ESP8266 is responding.
+
+
+Connect to Wi-Fi using the SSID and password.
+
+
+Open a TCP connection to ThingSpeak's server.
+
+
+Read Sensor Data:
+
+
+Read an analog value from the sensor (e.g., temperature).
+
+
+Construct and Send HTTP Request:
+
+
+Format the HTTP GET request to send sensor data to ThingSpeak.
+
+
+Send the request via serial communication.
+
+
+Verify response from the ESP8266.
+
+
+Repeat Data Transmission:
+
+
+Continuously collect and send sensor data with a delay.
+
+
+
+Code:
+// Wi-Fi and server details
+String ssid = "Simulator Wifi"; // Wi-Fi SSID
+String password = ""; // No password for virtual Wi-Fi
+String host = "api.thingspeak.com"; // ThingSpeak server
+const int httpPort = 80;
+String url = "/update?api_key=IQ4BKS2FGBIQS943&field1=";
+
+// Function to initialize ESP8266
+int setupESP8266(void) {
+	Serial.begin(115200); // Start serial communication
+	Serial.println("AT"); // Check ESP8266
+	delay(10);
+	if (!Serial.find("OK")) return 1;
+
+	Serial.println("AT+CWAJP=\"" + ssid + "\",\"" + password + "\"");
+	delay(10);
+	if (!Serial.find("OK")) return 2;
+
+	Serial.println("AT+CIPSTART=\"TCP\",\"" + host + "\"," + httpPort);
+	delay(50);
+	if (!Serial.find("OK")) return 3;
+
+	return 0;
+}
+
+// Function to send data to ThingSpeak
+void anydata(void) {
+	int temp = map(analogRead(A0), 20, 358, -40, 125);
+
+	// Construct HTTP request
+	String httpPacket = "GET " + url + String(temp) + " HTTP/1.1\r\nHost: " + host + "\r\n\r\n";
+	int length = httpPacket.length();
+
+	// Send message length
+	Serial.print("AT+CIPSEND=");
+	Serial.println(length);
+	delay(10);
+	if (!Serial.find(">")) return;
+
+	// Send HTTP request
+	Serial.print(httpPacket);
+	delay(10);
+	if (!Serial.find("SEND OK\r\n")) return;
+}
+
+void setup() {
+	setupESP8266();
+}
+
+void loop() {
+	anydata();
+	delay(100);
+}
+
+Expected Output:
+The ESP8266 successfully connects to the virtual Wi-Fi.
+
+
+The microcontroller reads an analog sensor value, converts it to a temperature range, and sends it to ThingSpeak.
+
+
+The ThingSpeak server receives the data and updates the corresponding field.
+
+
+Serial monitor outputs:
+AT
+OK
+AT+CWAJP="Simulator Wifi",""
+OK
+AT+CIPSTART="TCP","api.thingspeak.com",80
+OK
+AT+CIPSEND=...
+>
+GET /update?api_key=IQ4BKS2FGBIQS943&field1=...
+SEND OK
+
+
+
+Lab 6
+Aim:
+To design and implement a smoke detection and alert system using the ESP8266 Wi-Fi module and ThingSpeak for remote monitoring.
+Theory:
+Smoke detectors are essential for fire safety, capable of sensing the presence of smoke and triggering an alarm. In this lab, we use the ESP8266 Wi-Fi module to collect smoke sensor readings and send them to the cloud using ThingSpeak. The system consists of:
+Smoke sensors (A0, A1, A2) for monitoring different floors.
+
+
+ESP8266 to connect the system to Wi-Fi and send data.
+
+
+Buzzer to alert when smoke levels exceed a threshold. The microcontroller continuously reads sensor values, displays them on the Serial Monitor, and transmits them to ThingSpeak via an HTTP GET request.
+
+
+Algorithm:
+Initialize Components:
+
+
+Start serial communication at 115200 baud rate.
+
+
+Connect ESP8266 to Wi-Fi using AT+CWJAP.
+
+
+Set up pin modes:
+
+
+A0, A1, A2 → Smoke sensors for different floors.
+
+
+Pin 7 → Buzzer.
+
+
+Read Sensor Data:
+
+
+Collect smoke readings from A0, A1, and A2.
+
+
+Display sensor values on the Serial Monitor.
+
+
+Send Data to ThingSpeak:
+
+
+Establish a TCP connection using AT+CIPSTART.
+
+
+Construct an HTTP GET request with API key and sensor values.
+
+
+Transmit the request using AT+CIPSEND.
+
+
+Activate Buzzer on High Smoke Detection:
+
+
+If any sensor reading exceeds 85, activate the buzzer (tone(7, 1000)).
+
+
+Otherwise, turn off the buzzer (noTone(7)).
+
+
+Close Connection & Repeat:
+
+
+Terminate TCP connection using AT+CIPCLOSE.
+
+
+Wait for 10 seconds before the next transmission.
+
+
+Repeat the process continuously.
+
+
+Code:
+int val1 = 0, val2 = 0, val3 = 0;
+
+void setup() {
+  delay(100);
+  Serial.begin(115200);
+
+  Serial.println("AT+CWJAP=\"Simulator Wifi\",\"\"\r\n");
+  delay(3000);
+
+  pinMode(7, OUTPUT);
+  pinMode(A0, INPUT);
+  pinMode(A1, INPUT);
+  pinMode(A2, INPUT);
+}
+
+void loop() {
+  val1 = analogRead(A0);
+  val2 = analogRead(A1);
+  val3 = analogRead(A2);
+
+  Serial.print("Floor 1 Smoke: "); Serial.println(val1);
+  Serial.print("Floor 2 Smoke: "); Serial.println(val2);
+  Serial.print("Floor 3 Smoke: "); Serial.println(val3);
+  delay(1000);
+
+  Serial.println("AT+CIPSTART=\"TCP\",\"api.thingspeak.com\",80\r\n");
+  delay(3000);
+
+  String request = "GET /update?api_key=7FMOOFSORT938HZF&field1=";
+  request += String(val1) + "&field2=" + String(val2) + "&field3=" + String(val3);
+
+  Serial.print("AT+CIPSEND=");
+  Serial.println(request.length() + 2);
+  delay(1000);
+  Serial.print(request);
+  delay(1000);
+
+  if (val1 > 85 || val2 > 85 || val3 > 85) {
+	tone(7, 1000);
+  } else {
+	noTone(7);
+  }
+
+  Serial.println("AT+CIPCLOSE=0\r\n");
+  delay(10000);
+}
+
+Expected Output:
+The system reads smoke levels from three sensors and displays values on the Serial Monitor.
+
+
+The sensor data is transmitted to ThingSpeak for remote monitoring.
+
+
+If any reading exceeds 85, the buzzer is activated to alert users.
+
+
+The process repeats continuously, updating ThingSpeak at regular intervals.
+
+
+
+Lab 7
+Aim:
+To establish an AWS account, launch an EC2 instance, and connect a laptop as an IoT device to AWS IoT Core.
+
+Task 1: Running an EC2 Instance on AWS
+Theory:
+Amazon EC2 (Elastic Compute Cloud) is a service that provides virtual servers in the cloud. These virtual machines can run various operating systems and applications. AWS offers a free tier with limited usage.
+Algorithm:
+Create an AWS Account
+
+
+Sign up at AWS and activate the free-tier plan.
+
+
+Launch an EC2 Instance
+
+
+Navigate to EC2 Dashboard.
+
+
+Click Launch Instance.
+
+
+Choose an Amazon Machine Image (AMI) (e.g., Ubuntu Free-Tier).
+
+
+Select t2.micro (free-tier eligible).
+
+
+Configure storage and security group settings.
+
+
+Click Launch and select an existing or new key pair.
+
+
+Verify Instance Running
+
+
+Go to EC2 dashboard and check if the instance is running.
+
+
+Terminate the Instance
+
+
+Select the running instance and click Terminate to avoid charges.
+
+
+
+Task 2: Connecting Laptop as IoT Device to AWS IoT Core
+Theory:
+AWS IoT Core enables IoT devices to connect, send data, and communicate via MQTT, HTTP, or WebSockets. It allows secure communication between cloud services and IoT devices.
+Algorithm:
+Set Up Your Laptop
+
+
+Install Git (git --version) from Git Website.
+
+
+Install Python (python -V), ensuring version 3.7 or later is installed from Python Website.
+
+
+Install AWS IoT SDK
+
+
+Install the AWS IoT Device SDK for Python using:
+pip install AWSIoTPythonSDK
+
+Create an IoT Thing in AWS IoT Core
+
+
+Go to AWS IoT Core and navigate to Manage > Things.
+
+
+Click Create a Thing, name it, and choose the connectivity type (MQTT).
+
+
+Download and configure device certificates.
+
+
+Connect to AWS IoT Core
+
+
+Run a Python script to establish an MQTT connection.
+
+
+Send a test message to AWS IoT Core.
+
+
+Delete the Thing
+
+
+Navigate to the AWS IoT Console, select the created Thing, and delete it.
+
+
+
+Code (Python MQTT Connection to AWS IoT Core)
+
+from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
+
+client = AWSIoTMQTTClient("MyIoTDevice")
+client.configureEndpoint("your-endpoint.amazonaws.com", 8883)
+client.configureCredentials("root-CA.crt", "private.key", "certificate.pem")
+
+def message_callback(client, userdata, message):
+	print(f"Received message: {message.payload.decode()}")
+
+client.connect()
+client.subscribe("iot/topic", 1, message_callback)
+
+message = '{"temperature": 25, "humidity": 60}'
+client.publish("iot/topic", message, 1)
+print("Message Sent")
+
+client.disconnect()
+
+Expected Output:
+For EC2 Instance
+
+
+Successfully launched and terminated an EC2 instance.
+
+
+For IoT Device Connection
+
+
+Laptop successfully connected as an AWS IoT Core Thing.
+
+
+MQTT messages sent and received from AWS IoT Core.
+
+Lab 8
+Task 1: Frontend Using ReactJS for IoT Data
+Aim:
+To develop a frontend application using ReactJS that fetches and displays IoT data stored in CSV/JSON format and refreshes the data periodically.
+Theory:
+IoT devices generate data in real-time, which is stored in structured formats like CSV or JSON. A frontend application using ReactJS can dynamically fetch and visualize this data. The periodic refresh ensures that the displayed data remains updated. The data is usually fetched from a server hosting the dataset.
+Algorithm:
+Set up a Node.js server to serve IoT data stored in CSV format.
+Create an API endpoint that fetches the last 100 rows of data.
+Build a React frontend that calls this API and displays data in a table.
+Use setInterval to refresh data every 5 seconds.
+Ensure smooth UI updates using React’s state management.
+Code:
+Node.js Server (server.js)
+const express = require("express");
+const fs = require("fs");
+const csvParser = require("csv-parser");
+const app = express();
+const PORT = 5000;
+
+app.get("/data", (req, res) => {
+    let results = [];
+    fs.createReadStream("iot_data.csv")
+        .pipe(csvParser())
+        .on("data", (data) => results.push(data))
+        .on("end", () => {
+            res.json(results.slice(-100));
+        });
+});
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+React Frontend (App.js)
+import React, { useEffect, useState } from "react";
+
+function App() {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = () => {
+            fetch("http://localhost:5000/data")
+                .then((res) => res.json())
+                .then((json) => setData(json));
+        };
+        fetchData();
+        const interval = setInterval(fetchData, 5000);
+        return () => clearInterval(interval);
+    }, []);
+
+    return (
+        <div>
+            <h2>IoT Data</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Sensor Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.map((row, index) => (
+                        <tr key={index}>
+                            <td>{row.timestamp}</td>
+                            <td>{row.value}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
+export default App;
+Expected Output:
+A React application displaying IoT sensor data in a table, updating every 5 seconds.
+
+Task 2: CI/CD Pipeline for Arduino Using Jenkins
+Aim:
+To set up a CI/CD pipeline using Jenkins that automates the compilation and deployment of Arduino sketches.
+Theory:
+Continuous Integration (CI) automates the building and testing of code, while Continuous Deployment (CD) ensures that changes are pushed to production seamlessly. Jenkins, an automation server, is widely used to create pipelines that automate these processes. Using GitHub for version control and Arduino CLI for compiling sketches ensures smooth integration.
+Algorithm:
+Install Java 17 and Jenkins.
+Set up Jenkins on http://localhost:8080 and install required plugins (Git & Pipeline).
+Create a GitHub repository containing Arduino sketches.
+Write a Jenkinsfile to automate code compilation and testing.
+Configure a Jenkins pipeline to:
+Clone the repository.
+Set up Arduino CLI.
+Compile the Arduino sketch.
+Report build success/failure.
+Code:
+Arduino Sketch (Arduino-CI-CD.ino)
+void setup() {
+    pinMode(13, OUTPUT);
+}
+void loop() {
+    digitalWrite(13, HIGH);
+    delay(1000);
+    digitalWrite(13, LOW);
+    delay(1000);
+}
+Jenkinsfile
+pipeline {
+    agent any
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/your-repo/arduino-sketches.git'
+            }
+        }
+        stage('Setup Arduino CLI') {
+            steps {
+                sh 'arduino-cli core install arduino:avr'
+            }
+        }
+        stage('Compile Sketch') {
+            steps {
+                sh 'arduino-cli compile --fqbn arduino:avr:uno Arduino-CI-CD.ino'
+            }
+        }
+    }
+}
+Expected Output:
+Jenkins fetches the latest code from GitHub.
+Jenkins compiles the Arduino code and reports the status.
+The code is ready for deployment after successful compilation.
+
+Conclusion:
+In this lab, we:
+Developed a ReactJS frontend to visualize IoT data from CSV/JSON.
+Implemented a Jenkins-based CI/CD pipeline for Arduino sketches. These implementations demonstrate real-world applications of IoT data visualization and automation in software development.
+
+Lab 9
+Aim
+To develop and deploy two microservices each in Golang and Node.js, containerize them using Docker, and orchestrate them using Docker Compose. The services will perform basic arithmetic operations (addition and multiplication).
+Theory
+Microservices architecture involves developing applications as a collection of small, independent services that communicate over well-defined APIs. Docker containers provide an efficient way to package and deploy these microservices, ensuring consistency across environments. Docker Compose helps orchestrate multiple containers as a single application.
+Algorithm
+Task 1: Golang Services
+Create two Golang services:
+Service A: Addition service (/add endpoint)
+Service B: Multiplication service (/multiply endpoint)
+For each service:
+Create a Go module (go.mod)
+Implement HTTP handlers for the operations
+Create a Dockerfile for containerization
+Create docker-compose.yml to manage both services
+Build and run containers using Docker Compose
+Test services using curl commands
+Task 2: Node.js Services
+Create two Node.js services:
+Service A: Addition service (/add endpoint)
+Service B: Multiplication service (/multiply endpoint)
+For each service:
+Create package.json with dependencies
+Implement Express.js server with endpoints
+Create a Dockerfile for containerization
+Create docker-compose.yml to manage both services
+Build and run containers using Docker Compose
+Test services using curl commands
+Code (Key Components)
+Task 1: Golang Services
+Service A (Addition)
+// main.go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+)
+
+type Request struct {
+	A float64 `json:"a"`
+	B float64 `json:"b"`
+}
+
+type Response struct {
+	Result float64 `json:"result"`
+}
+
+func addHandler(w http.ResponseWriter, r *http.Request) {
+	var req Request
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+    	http.Error(w, "Invalid request", http.StatusBadRequest)
+    	return
+	}
+	result := req.A + req.B
+	json.NewEncoder(w).Encode(Response{Result: result})
+}
+
+func main() {
+	http.HandleFunc("/add", addHandler)
+	http.ListenAndServe(":8081", nil)
+}
+
+Service B (Multiplication)
+
+// Similar structure as Service A but with multiplication logic
+func multiplyHandler(w http.ResponseWriter, r *http.Request) {
+	var req Request
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+    	http.Error(w, "Invalid request", http.StatusBadRequest)
+    	return
+	}
+	result := req.A * req.B
+	json.NewEncoder(w).Encode(Response{Result: result})
+}
+
+Dockerfile (for both services)
+FROM golang:1.24
+WORKDIR /app
+COPY . .
+RUN go mod tidy && go build -o main .
+CMD ["/app/main"]
+
+Task 2: Node.js Services
+Service A (Addition)
+// index.js
+const express = require("express");
+const bodyParser = require("body-parser");
+
+const app = express();
+app.use(bodyParser.json());
+
+app.post("/add", (req, res) => {
+	const { a, b } = req.body;
+	if (typeof a !== "number" || typeof b !== "number") {
+    	return res.status(400).json({ error: "Invalid input" });
+	}
+	res.json({ result: a + b });
+});
+
+app.listen(8081, () => console.log("ServiceA running on port 8081"));
+
+Service B (Multiplication)
+// Similar structure as Service A but with multiplication logic
+app.post("/multiply", (req, res) => {
+	const { a, b } = req.body;
+	if (typeof a !== "number" || typeof b !== "number") {
+    	return res.status(400).json({ error: "Invalid input" });
+	}
+	res.json({ result: a * b });
+});
+
+Dockerfile (for both services)
+FROM node:22
+WORKDIR /app
+COPY package.json .
+RUN npm install
+COPY . .
+CMD ["node", "index.js"]
+
+docker-compose.yml (for both tasks)
+version: "3"
+services:
+  servicea:
+	build: ./serviceA
+	ports:
+  	- "8081:8081"
+  serviceb:
+	build: ./serviceB
+	ports:
+  	- "8082:8082"
+
+Expected Output
+Test Commands and Expected Responses
+Golang Services
+Addition Service:
+curl -X POST http://localhost:8081/add -H "Content-Type: application/json" -d '{"a":5, "b":3}'
+
+Expected output:
+{"result":8}
+
+Multiplication Service:
+curl -X POST http://localhost:8082/multiply -H "Content-Type: application/json" -d '{"a":5, "b":3}'
+
+Expected output:
+{"result":15}
+
+Node.js Services
+Addition Service:
+curl -X POST http://localhost:8081/add -H "Content-Type: application/json" -d '{"a":5, "b":3}'
+
+Expected Output:
+{"result":8}
+
+Multiplication Service:
+
+curl -X POST http://localhost:8082/multiply -H "Content-Type: application/json" -d '{"a":5, "b":3}'
+
+Expected output:
+{"result":15}
+
+
+Lab 10
+Aim
+To install Node-RED, create a simple flow to demonstrate basic functionality, and implement a pattern for sensor data processing with conditional alerts.
+Theory
+Node-RED is a flow-based programming tool built on Node.js that allows visual programming of IoT applications. It provides a browser-based editor for wiring together hardware devices, APIs, and online services. Nodes represent functions that can be connected to create flows, making it ideal for IoT applications where data from various sources needs to be processed and acted upon.
+Algorithm
+Task 1: Install Node-RED
+Install Node.js (prerequisite for Node-RED)
+Install npm (Node Package Manager)
+Install Node-RED globally using npm
+Create a dedicated directory for Node-RED projects
+Start Node-RED server
+Task 2: Simple Node-RED Flow
+Open Node-RED editor in browser
+Drag and connect three nodes:
+Inject node (trigger)
+Function node (processing)
+Debug node (output)
+Configure function node with simple message
+Deploy and trigger the flow
+View output in debug panel
+Task 3: Node-RED Pattern for Sensor Data
+Create flow with:
+Inject node (simulate sensor data)
+Random node (generate temperature values)
+Switch node (threshold check)
+Change node (alert formatting)
+Debug nodes (output)
+Configure random number generation (10-80°C)
+Set switch condition (temperature > 50°C)
+Format alert message for high temperatures
+Deploy and test the flow
+Code/Configuration
+Task 2: Simple Flow Configuration
+Function node code:
+msg.payload = { message: "Hello World from Node-RED! ft.Jayant" };
+return msg;
+
+Node connections:
+
+[inject] -> [function] -> [debug]
+
+Task 3: Sensor Pattern Configuration
+Random temperature generator (Function node):
+msg.payload = Math.floor(Math.random() * 71) + 10;
+return msg;
+
+Switch node configuration:
+
+Property: msg.payload
+Condition 1: > 50 (route to alert path)
+Otherwise: route to normal temperature path
+
+Change node (alert message):
+
+Set msg.payload to: "Alert! High Temp detected: " + msg.payload + "deg C"
+
+Node connections:
+
+[inject] -> [random temp] -> [switch]
+[switch] -> [change] -> [debug alert] (for >50°C)
+[switch] -> [debug normal] (for ≤50°C)
+Expected Output
+Task 2 Output
+In debug panel:
+{
+  "message": "Hello World from Node-RED! ft.Jayant"
+}
+
+Task 3 Output
+In debug panel (example):
+[12:56:57 PM] "Alert! High Temp detected: 63deg C"
+[12:58:08 PM] "Alert! High Temp detected: 69deg C"
+[12:58:09 PM] 36 (normal temperature)
+[12:58:40 PM] "Alert! High Temp detected: 65deg C"
+[12:58:40 PM] 40 (normal temperature)
+[12:58:41 PM] 25 (normal temperature)
